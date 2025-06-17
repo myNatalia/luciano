@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VidaSana - Tu Portal de Bienestar Integral</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background: linear-gradient(135deg, #f0f9f0 0%, #e8f5e8 100%);
+        }
+
+        /* Header y Navegación */
+        header {
+            background: linear-gradient(135deg, #2d5016 0%, #38a169 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #68d391;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-btn {
+            background: none;
+            border: none;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .dropdown-btn:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 280px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1001;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: #2d3748;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .dropdown-item:first-child {
+            border-radius: 15px 0 0 0;
+        }
+
+        .dropdown-item:nth-child(2) {
+            border-radius: 0 15px 0 0;
+        }
+
+        .dropdown-item:nth-last-child(2) {
+            border-radius: 0 0 0 15px;
+            border-bottom: none;
+        }
+
+        .dropdown-item:last-child {
+            border-radius: 0 0 15px 0;
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: linear-gradient(135deg, #68d391, #48bb78);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .dropdown-category {
+            grid-column: span 2;
+            background: #f0fff4;
+            color: #2d5016;
+            font-weight: bold;
+            padding: 0.8rem 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #38a169 0%, #68d391 100%);
+            color: white;
+            padding: 4rem 2rem;
+            border-radius: 25px;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.05) 10px,
+                rgba(255,255,255,0.05) 20px
+            );
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Carrusel */
+        .carousel-container {
+            position: relative;
+            max-width: 800px;
+            margin: 3rem auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #68d391, #38a169);
+            color: white;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .carousel-btn {
+            background: #38a169;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-btn:hover {
+            background: #2f855a;
+            transform: translateY(-2px);
+        }
+
+        /* Sections */
+        .section {
+            background: white;
+            margin: 3rem 0;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            color: #2d5016;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #38a169, #68d391);
+            border-radius: 2px;
+        }
+
+        /* Media Gallery */
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .media-placeholder {
+            height: 250px;
+            background: linear-gradient(135deg, #e2e8f0, #cbd5e0);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4a5568;
+            font-size: 1.1rem;
+            border: 2px dashed #a0aec0;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .media-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .media-placeholder:hover {
+            background: linear-gradient(135deg, #68d391, #38a169);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .media-placeholder:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Tips and Errors */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .tip-card, .error-card {
+            padding: 2rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .tip-card {
+            background: linear-gradient(135deg, #c6f6d5, #9ae6b4);
+            border-left: 5px solid #38a169;
+        }
+
+        .error-card {
+            background: linear-gradient(135deg, #fed7d7, #feb2b2);
+            border-left: 5px solid #e53e3e;
+        }
+
+        .tip-card:hover, .error-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Planes de Ejercicio y Nutrición */
+        .plans-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .plan-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .plan-section h3 {
+            color: #2d5016;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        .plan-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+
+        .plan-table th, .plan-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .plan-table th {
+            background-color: #f0fff4;
+            color: #2d5016;
+            font-weight: 600;
+        }
+
+        .plan-table tr:hover {
+            background-color: #f0fff4;
+        }
+
+        .plan-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .plan-table tr:nth-child(even):hover {
+            background-color: #f0fff4;
+        }
+
+        .difficulty-beginner {
+            color: #38a169;
+            font-weight: 600;
+        }
+
+        .difficulty-intermediate {
+            color: #d69e2e;
+            font-weight: 600;
+        }
+
+        .difficulty-advanced {
+            color: #e53e3e;
+            font-weight: 600;
+        }
+
+        .nutrition-icon {
+            color: #38a169;
+            margin-right: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .plans-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .dropdown-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .dropdown-item:first-child {
+                border-radius: 15px 15px 0 0;
+            }
+            
+            .dropdown-item:nth-child(2) {
+                border-radius: 0;
+            }
+            
+            .dropdown-item:nth-last-child(2) {
+                border-radius: 0;
+                border-bottom: 1px solid #e2e8f0;
+            }
+            
+            .dropdown-item:last-child {
+                border-radius: 0 0 15px 15px;
+            }
+            
+            .dropdown-category {
+                grid-column: span 1;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        /* Estilos para las frases motivacionales */
+        .motivational-quotes {
+            background: linear-gradient(135deg, rgba(56, 161, 105, 0.9), rgba(104, 211, 145, 0.9));
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            height: 120px;
+        }
+
+        .quote-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.5s ease;
+            padding: 0 2rem;
+        }
+
+        .quote-slide.active {
+            opacity: 1;
+        }
+
+        .quote-slide p {
+            font-size: 1.5rem;
+            font-weight: 500;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .quote-controls {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .quote-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quote-dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        /* Estilos para la introducción en tabla */
+        .intro-table-container {
+            margin: 2rem 0;
+            overflow-x: auto;
+        }
+        
+        .intro-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        
+        .intro-table th, .intro-table td {
+            padding: 1.2rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .intro-table th {
+            background: linear-gradient(135deg, #38a169, #68d391);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .intro-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        
+        .intro-table tr:hover {
+            background-color: #f0fff4;
+            transform: scale(1.01);
+            transition: all 0.3s ease;
+        }
+        
+        .intro-table td:first-child {
+            font-weight: 600;
+            color: #2d5016;
+        }
+
+        /* Estilos para la sección multimedia */
+        .multimedia-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .media-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .media-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .media-card h3 {
+            color: #2d5016;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .audio-card {
+            grid-column: span 2;
+        }
+
+        .audio-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        audio {
+            flex-grow: 1;
+        }
+
+        .audio-wave {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            height: 40px;
+        }
+
+        .wave {
+            width: 5px;
+            background: linear-gradient(to top, #68d391, #38a169);
+            border-radius: 3px;
+            animation: wave 1.5s infinite ease-in-out;
+        }
+
+        .wave:nth-child(1) { height: 20%; animation-delay: 0.1s; }
+        .wave:nth-child(2) { height: 50%; animation-delay: 0.3s; }
+        .wave:nth-child(3) { height: 80%; animation-delay: 0.5s; }
+        .wave:nth-child(4) { height: 50%; animation-delay: 0.2s; }
+        .wave:nth-child(5) { height: 30%; animation-delay: 0.4s; }
+
+        @keyframes wave {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(1.5); }
+        }
+
+        /* Estilos para el cuestionario */
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        
+        .quiz-question {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .quiz-question h3 {
+            color: #2d5016;
+            margin-bottom: 1rem;
+        }
+        
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        .quiz-options label {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .quiz-options label:hover {
+            background: #f0fff4;
+        }
+        
+        .quiz-options input[type="radio"] {
+            accent-color: #38a169;
+        }
+        
+        .quiz-submit-btn {
+            background: linear-gradient(135deg, #38a169, #68d391);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: block;
+            margin: 2rem auto 0;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(56, 161, 105, 0.3);
+        }
+        
+        .quiz-result {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            display: none;
+        }
+        
+        .result-excellent {
+            background: linear-gradient(135deg, #c6f6d5, #9ae6b4);
+            border-left: 5px solid #38a169;
+        }
+        
+        .result-good {
+            background: linear-gradient(135deg, #feebc8, #fbd38d);
+            border-left: 5px solid #d69e2e;
+        }
+        
+        .result-regular {
+            background: linear-gradient(135deg, #fed7d7, #feb2b2);
+            border-left: 5px solid #e53e3e;
+        }
+
+        /* Estilos para el pie de página */
+        .footer {
+            background: linear-gradient(135deg, #2d5016 0%, #38a169 100%);
+            color: white;
+            padding: 3rem 0 0;
+            margin-top: 4rem;
+            border-radius: 25px 25px 0 0;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: #68d391;
+        }
+
+        .footer-section p, .footer-section li {
+            margin-bottom: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #68d391;
+            padding-left: 5px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #68d391;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            background: rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .audio-card {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"><i class="fas fa-leaf"></i> Vida Sana</div>
+            <ul class="nav-menu">
+                <li class="dropdown">
+                    <button class="dropdown-btn">
+                        <i class="fas fa-heartbeat"></i> Estilos de Vida
+                    </button>
+                    <div class="dropdown-content">
+                        <div class="dropdown-category">
+                            <i class="fas fa-running"></i> Actividad Física
+                        </div>
+                        <a href="#salud-fisica" class="dropdown-item">
+                            <i class="fas fa-dumbbell"></i> Ejercicio Físico
+                        </a>
+                        <a href="#planes-ejercicio" class="dropdown-item">
+                            <i class="fas fa-calendar-alt"></i> Planes de Ejercicio
+                        </a>
+                        
+                        <div class="dropdown-category">
+                            <i class="fas fa-utensils"></i> Nutrición
+                        </div>
+                        <a href="#nutricion" class="dropdown-item">
+                            <i class="fas fa-apple-alt"></i> Alimentación Saludable
+                        </a>
+                        <a href="#planes-nutricion" class="dropdown-item">
+                            <i class="fas fa-clipboard-list"></i> Planes de Nutrición
+                        </a>
+                        
+                        <div class="dropdown-category">
+                            <i class="fas fa-brain"></i> Bienestar Mental
+                        </div>
+                        <a href="#salud-mental" class="dropdown-item">
+                            <i class="fas fa-head-side-virus"></i> Salud Mental
+                        </a>
+                        <a href="#salud-emocional" class="dropdown-item">
+                            <i class="fas fa-heart"></i> Salud Emocional
+                        </a>
+                        <a href="#mindfulness" class="dropdown-item">
+                            <i class="fas fa-spa"></i> Mindfulness
+                        </a>
+                        
+                        <div class="dropdown-category">
+                            <i class="fas fa-bed"></i> Descanso
+                        </div>
+                        <a href="#descanso" class="dropdown-item">
+                            <i class="fas fa-moon"></i> Sueño Reparador
+                        </a>
+                        <a href="#hidratacion" class="dropdown-item">
+                            <i class="fas fa-tint"></i> Hidratación
+                        </a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <button class="dropdown-btn">
+                        <i class="fas fa-images"></i> Galería
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="#media" class="dropdown-item">
+                            <i class="fas fa-camera"></i> Fotos Inspiradoras
+                        </a>
+                        <a href="#videos" class="dropdown-item">
+                            <i class="fas fa-video"></i> Videos Educativos
+                        </a>
+                        <a href="#recetas" class="dropdown-item">
+                            <i class="fas fa-utensils"></i> Recetas Visuales
+                        </a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <button class="dropdown-btn">
+                        <i class="fas fa-lightbulb"></i> Consejos
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="#consejos" class="dropdown-item">
+                            <i class="fas fa-check-circle"></i> Hábitos Saludables
+                        </a>
+                        <a href="#errores" class="dropdown-item">
+                            <i class="fas fa-times-circle"></i> Errores Comunes
+                        </a>
+                        <a href="#preguntas" class="dropdown-item">
+                            <i class="fas fa-question-circle"></i> Preguntas Frecuentes
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <center><img src="ba.jpg" height="350" width="1050" style="border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);"></center>
+
+        <!-- Frases Motivacionales -->
+        <section class="motivational-quotes">
+            <div class="quote-slide active">
+                <p>"Cada pequeño paso hacia un estilo de vida saludable es una victoria."</p>
+            </div>
+            <div class="quote-slide">
+                <p>"Tu cuerpo es tu hogar - cuídalo con amor y respeto."</p>
+            </div>
+            <div class="quote-slide">
+                <p>"La salud no es solo lo que comes, es lo que piensas, sientes y haces."</p>
+            </div>
+            <div class="quote-controls">
+                <span class="quote-dot active" data-index="0"></span>
+                <span class="quote-dot" data-index="1"></span>
+                <span class="quote-dot" data-index="2"></span>
+            </div>
+        </section>
+
+        <!-- Introducción sobre Estilos de Vida Saludable -->
+        <section class="section" id="introduccion">
+            <h2><i class="fas fa-seedling"></i> Introducción a los Estilos de Vida Saludable</h2>
+            <div class="intro-table-container">
+                <table class="intro-table">
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-check-circle"></i> Componente</th>
+                            <th><i class="fas fa-info-circle"></i> Descripción</th>
+                            <th><i class="fas fa-star"></i> Beneficios</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><i class="fas fa-utensils"></i> Alimentación</td>
+                            <td>Dieta balanceada rica en nutrientes</td>
+                            <td>Mejora energía, sistema inmunológico y salud general</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-running"></i> Ejercicio</td>
+                            <td>Actividad física regular</td>
+                            <td>Fortalece músculos, corazón y mejora estado de ánimo</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-brain"></i> Salud Mental</td>
+                            <td>Gestión del estrés y emociones</td>
+                            <td>Reduce ansiedad, mejora concentración y relaciones</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-bed"></i> Descanso</td>
+                            <td>Sueño de calidad y suficiente</td>
+                            <td>Reparación celular, mejora memoria y productividad</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-users"></i> Social</td>
+                            <td>Relaciones saludables</td>
+                            <td>Apoyo emocional, sentido de pertenencia y felicidad</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Cuestionario de Estilo de Vida -->
+        <section class="section" id="cuestionario">
+            <h2><i class="fas fa-clipboard-check"></i> ¿Qué estilo de vida llevas?</h2>
+            <p style="text-align: center; margin-bottom: 2rem;">Responde estas preguntas para descubrir cómo está tu estilo de vida actual</p>
+            
+            <div class="quiz-container">
+                <div class="quiz-question">
+                    <h3>1. ¿Con qué frecuencia realizas actividad física?</h3>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="q1" value="3"> 4+ veces por semana</label>
+                        <label><input type="radio" name="q1" value="2"> 2-3 veces por semana</label>
+                        <label><input type="radio" name="q1" value="1"> Menos de 2 veces</label>
+                        <label><input type="radio" name="q1" value="0"> Casi nunca</label>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <h3>2. ¿Cómo describirías tu alimentación?</h3>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="q2" value="3"> Mayormente saludable y balanceada</label>
+                        <label><input type="radio" name="q2" value="2"> Algo saludable pero con excesos</label>
+                        <label><input type="radio" name="q2" value="1"> Más comida procesada que saludable</label>
+                        <label><input type="radio" name="q2" value="0"> No presto atención a lo que como</label>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <h3>3. ¿Cuántas horas duermes normalmente?</h3>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="q3" value="3"> 7-8 horas regularmente</label>
+                        <label><input type="radio" name="q3" value="2"> 6-7 horas, a veces menos</label>
+                        <label><input type="radio" name="q3" value="1"> 5-6 horas, con dificultad para dormir</label>
+                        <label><input type="radio" name="q3" value="0"> Menos de 5 horas</label>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <h3>4. ¿Cómo manejas el estrés?</h3>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="q4" value="3"> Con técnicas como meditación o ejercicio</label>
+                        <label><input type="radio" name="q4" value="2"> A veces bien, a veces no tan bien</label>
+                        <label><input type="radio" name="q4" value="1"> Me cuesta manejarlo adecuadamente</label>
+                        <label><input type="radio" name="q4" value="0"> No hago nada para manejarlo</label>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <h3>5. ¿Consumes alcohol o tabaco?</h3>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="q5" value="3"> Nunca o casi nunca</label>
+                        <label><input type="radio" name="q5" value="2"> Ocasionalmente con moderación</label>
+                        <label><input type="radio" name="q5" value="1"> Regularmente</label>
+                        <label><input type="radio" name="q5" value="0"> Diariamente o en exceso</label>
+                    </div>
+                </div>
+                
+                <button id="quiz-submit" class="quiz-submit-btn">Descubre tu estilo de vida</button>
+                
+                <div id="quiz-result" class="quiz-result">
+                    <!-- Resultado aparecerá aquí -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Planes de Ejercicio y Nutrición -->
+        <section class="section" id="planes">
+            <h2><i class="fas fa-calendar-check"></i> Planes de Salud Personalizados</h2>
+            <p style="text-align: center; margin-bottom: 2rem;">Elige el plan que mejor se adapte a tus objetivos y estilo de vida</p>
+            
+            <div class="plans-container">
+                <div class="plan-section" id="planes-ejercicio">
+                    <h3><i class="fas fa-dumbbell"></i> Planes de Ejercicio</h3>
+                    <table class="plan-table">
+                        <thead>
+                            <tr>
+                                <th>Nivel</th>
+                                <th>Tipo</th>
+                                <th>Frecuencia</th>
+                                <th>Duración</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="difficulty-beginner">Principiante</td>
+                                <td>Caminata, Yoga, Ejercicios básicos</td>
+                                <td>3-4 veces/semana</td>
+                                <td>20-30 min</td>
+                            </tr>
+                            <tr>
+                                <td class="difficulty-beginner">Principiante +</td>
+                                <td>Cardio ligero, Entrenamiento de fuerza básico</td>
+                                <td>4-5 veces/semana</td>
+                                <td>30-45 min</td>
+                            </tr>
+                            <tr>
+                                <td class="difficulty-intermediate">Intermedio</td>
+                                <td>HIIT, Ciclismo, Entrenamiento funcional</td>
+                                <td>5 veces/semana</td>
+                                <td>45-60 min</td>
+                            </tr>
+                            <tr>
+                                <td class="difficulty-intermediate">Intermedio +</td>
+                                <td>CrossFit, Running, Entrenamiento con pesas</td>
+                                <td>5-6 veces/semana</td>
+                                <td>60 min</td>
+                            </tr>
+                            <tr>
+                                <td class="difficulty-advanced">Avanzado</td>
+                                <td>Entrenamiento intensivo, Maratón, Powerlifting</td>
+                                <td>6-7 veces/semana</td>
+                                <td>60-90 min</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="plan-section" id="planes-nutricion">
+                    <h3><i class="fas fa-utensils"></i> Planes de Nutrición</h3>
+                    <table class="plan-table">
+                        <thead>
+                            <tr>
+                                <th>Objetivo</th>
+                                <th>Enfoque</th>
+                                <th>Recomendaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Pérdida de peso</td>
+                                <td>Déficit calórico</td>
+                                <td>
+                                    <span class="nutrition-icon"><i class="fas fa-check"></i></span> Proteínas magras<br>
+                                    <span class="nutrition-icon"><i class="fas fa-check"></i></span> Vegetales fibrosos<br>
+                                    <span class="nutrition-icon"><i class="fas fa-check"></i></span> Grasas saludables
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Mantenimiento</td>
+                                <td>Balance energético</td>
+                                <td>
+                                    <span class="nutrition-icon"><i class="fas fa-check"></i></span> Dieta variada<br>
+                                    <span class="nutrition-icon"><i class="fas fa-check"></i></span> Control porciones<br>
+                                    <span class="nutrition-icon"><i class="fas fa-check"></i></span> Hidratación
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Ganancia muscular</td>
+                                <td>Superávit calórico</td>
+                                <td>
+                                    <span class="nutrition-icon"><i class="fas fa-check"></i></span> Alto en proteínas<br>
+                                    <span class="nutrition-icon"><i class="fas fa-check"></i></span> Carbohidratos complejos<br>
+                                    <span class="nutrition-icon"><i class="fas fa-check"></i></span> Nutrientes densos
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Energía y vitalidad</td>
+                                <td>Nutrición balanceada</td>
+                                <td>
+                                    <span class="nutrition-icon"><i class="fas fa-check"></i></span> Alimentos integrales<br>
+                                    <span class="nutrition-icon"><i class="fas fa-check"></i></span> Superalimentos<br>
+                                    <span class="nutrition-icon"><i class="fas fa-check"></i></span> Antioxidantes
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Salud digestiva</td>
+                                <td>Microbioma intestinal</td>
+                                <td>
+                                    <span class="nutrition-icon"><i class="fas fa-check"></i></span> Probióticos<br>
+                                    <span class="nutrition-icon"><i class="fas fa-check"></i></span> Fibra prebiótica<br>
+                                    <span class="nutrition-icon"><i class="fas fa-check"></i></span> Alimentos fermentados
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Multimedia -->
+        <section class="section" id="multimedia">
+            <h2><i class="fas fa-play-circle"></i> Recursos Multimedia</h2>
+            <p style="text-align: center; margin-bottom: 2rem;">Aprende más sobre vida saludable con nuestros recursos audiovisuales</p>
+            
+            <div class="multimedia-grid">
+                <!-- PRIMER VIDEO -->
+                <div class="media-card">
+                    <h3><i class="fas fa-video"></i> Rutina de Ejercicio Matutino</h3>
+                    <div class="video-container">
+                        <!-- Reemplaza esto con tu video real -->
+                        <iframe width="560" height="315" src="ejercicio.mp4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+                
+                <!-- SEGUNDO VIDEO -->
+                <div class="media-card">
+                    <h3><i class="fas fa-video"></i> Preparando un Desayuno Saludable</h3>
+                    <div class="video-container">
+                        <!-- Reemplaza esto con tu video real -->
+                        <iframe width="560" height="315" src="comida.mp4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+                
+                <!-- AUDIO (ocupará todo el ancho) -->
+                <div class="media-card audio-card">
+                    <h3><i class="fas fa-music"></i> Meditación Guiada</h3>
+                    <div class="audio-container">
+                        <!-- Reemplaza con tu archivo de audio real -->
+                        <audio controls>
+                            <source src="audio.mp3" type="audio/mpeg">
+                            
+                        </audio>
+                        <div class="audio-wave">
+                            <div class="wave"></div>
+                            <div class="wave"></div>
+                            <div class="wave"></div>
+                            <div class="wave"></div>
+                            <div class="wave"></div>
+                        </div>
+                    </div>
+                    <p>Relájate con esta meditación guiada de 10 minutos para reducir el estrés.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Galería de Medios -->
+        <section class="section" id="media">
+            <h2><i class="fas fa-images"></i> Galería de Medios</h2>
+            <p style="text-align: center; margin-bottom: 2rem;">Espacios dedicados para tus videos, fotos e imágenes inspiracionales</p>
+            <div class="media-grid">
+                <div class="media-placeholder">
+                    <img src="1m.jpg" alt="Ejercicio al aire libre">
+                </div>
+                <div class="media-placeholder">
+                    <img src="2m.jpg" alt="Comida saludable">
+                </div>
+                <div class="media-placeholder">
+                    <img src="3m.jpg" alt="Meditación">
+                </div>
+                <div class="media-placeholder">
+                    <img src="4m.webp" alt="Entrenamiento en casa">
+                </div>
+                <div class="media-placeholder">
+                    <img src="4m.jpg" alt="Smoothies saludables">
+                </div>
+                <div class="media-placeholder">
+                    <img src="6m.jpg" alt="Yoga en la playa">
+                </div>
+            </div>
+        </section>
+
+        <!-- Consejos -->
+        <section class="section" id="consejos">
+            <h2><i class="fas fa-lightbulb"></i> Consejos para un Estilo de Vida Saludable</h2>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h3><i class="fas fa-utensils"></i> Alimentación Consciente</h3>
+                    <p>Come despacio, mastica bien y disfruta cada bocado. Escucha las señales de tu cuerpo para saber cuándo estás satisfecho.</p>
+                </div>
+                <div class="tip-card">
+                    <h3><i class="fas fa-tint"></i> Hidratación Adecuada</h3>
+                    <p>Bebe al menos 8 vasos de agua al día. Inicia tu mañana con un vaso de agua para activar tu metabolismo.</p>
+                </div>
+                <div class="tip-card">
+                    <h3><i class="fas fa-walking"></i> Movimiento Diario</h3>
+                    <p>Incorpora al menos 30 minutos de actividad física diaria. Puede ser caminar, bailar o subir escaleras.</p>
+                </div>
+                <div class="tip-card">
+                    <h3><i class="fas fa-bed"></i> Sueño Reparador</h3>
+                    <p>Mantén un horario regular de sueño. Duerme entre 7-9 horas para una recuperación óptima.</p>
+                </div>
+                <div class="tip-card">
+                    <h3><i class="fas fa-spa"></i> Gestión del Estrés</h3>
+                    <p>Practica técnicas de relajación como respiración profunda, meditación o yoga para manejar el estrés diario.</p>
+                </div>
+                <div class="tip-card">
+                    <h3><i class="fas fa-tree"></i> Conexión con la Naturaleza</h3>
+                    <p>Pasa tiempo al aire libre regularmente. El contacto con la naturaleza mejora tu estado de ánimo y reduce el estrés.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Errores Comunes -->
+        <section class="section" id="errores">
+            <h2><i class="fas fa-exclamation-triangle"></i> Errores Comunes en el Estilo de Vida Saludable</h2>
+            <div class="tips-grid">
+                <div class="error-card">
+                    <h3><i class="fas fa-ban"></i> Dietas Extremas</h3>
+                    <p>Evita las dietas muy restrictivas. Pueden causar deficiencias nutricionales y efectos rebote. Opta por cambios graduales y sostenibles.</p>
+                </div>
+                <div class="error-card">
+                    <h3><i class="fas fa-running"></i> Sobre-ejercitarse</h3>
+                    <p>Más no siempre es mejor. El exceso de ejercicio puede llevar a lesiones y agotamiento. Respeta los días de descanso.</p>
+                </div>
+                <div class="error-card">
+                    <h3><i class="fas fa-clock"></i> Saltar Comidas</h3>
+                    <p>Saltarse comidas ralentiza el metabolismo y puede provocar atracones posteriores. Mantén horarios regulares de alimentación.</p>
+                </div>
+                <div class="error-card">
+                    <h3><i class="fas fa-brain"></i> Ignorar la Salud Mental</h3>
+                    <p>La salud física sin bienestar mental no es sostenible. Dedica tiempo al autocuidado y busca ayuda profesional si la necesitas.</p>
+                </div>
+                <div class="error-card">
+                    <h3><i class="fas fa-user-friends"></i> Compararse con Otros</h3>
+                    <p>Cada persona es única. Evita compararte con otros y enfócate en tu propio progreso y bienestar.</p>
+                </div>
+                <div class="error-card">
+                    <h3><i class="fas fa-calendar-alt"></i> Falta de Constancia</h3>
+                    <p>Los cambios requieren tiempo. No esperes resultados inmediatos y mantén la constancia en tus hábitos saludables.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Estilos de Vida Saludable -->
+        <section class="section" id="estilos-vida">
+            <h2><i class="fas fa-star"></i> Pilares de un Estilo de Vida Saludable</h2>
+            
+            <div class="section" id="salud-fisica">
+                <h3><i class="fas fa-dumbbell"></i> Salud Física</h3>
+                <p>La salud física es la base de nuestro bienestar. Incluye ejercicio regular, mantener un peso saludable, y tener energía para las actividades diarias. El ejercicio fortalece el corazón, mejora la circulación, aumenta la fuerza muscular y la flexibilidad. Dedica al menos 150 minutos semanales a actividad física moderada.</p>
+            </div>
+
+            <div class="section" id="salud-mental">
+                <h3><i class="fas fa-brain"></i> Salud Mental</h3>
+                <p>Mantener una mente saludable es crucial para el bienestar general. Incluye gestionar el estrés, mantener una actitud positiva, y desarrollar resiliencia ante los desafíos. Practica mindfulness, mantén conexiones sociales significativas y no dudes en buscar ayuda profesional cuando la necesites.</p>
+            </div>
+
+            <div class="section" id="salud-emocional">
+                <h3><i class="fas fa-heart"></i> Salud Emocional</h3>
+                <p>La inteligencia emocional te permite reconocer, entender y manejar tus emociones de manera saludable. Desarrolla la autoconciencia, practica la empatía, y aprende técnicas de regulación emocional. Las emociones equilibradas contribuyen a relaciones más sanas y mayor satisfacción personal.</p>
+            </div>
+
+            <div class="section" id="nutricion">
+                <h3><i class="fas fa-utensils"></i> Nutrición Balanceada</h3>
+                <p>Una alimentación equilibrada proporciona los nutrientes necesarios para el óptimo funcionamiento del cuerpo. Incluye variedad de frutas, verduras, proteínas magras, granos integrales y grasas saludables. Limita los alimentos procesados y azúcares añadidos.</p>
+            </div>
+
+            <div class="section" id="descanso">
+                <h3><i class="fas fa-bed"></i> Descanso y Sueño</h3>
+                <p>El sueño reparador es esencial para la recuperación física y mental. Durante el sueño, el cuerpo se repara y la mente procesa las experiencias del día. Mantén una rutina de sueño consistente y crea un ambiente propicio para el descanso.</p>
+            </div>
+
+            <div class="section" id="hidratacion">
+                <h3><i class="fas fa-tint"></i> Hidratación</h3>
+                <p>El agua es vital para todas las funciones corporales. Mantén una hidratación adecuada para optimizar el rendimiento físico y mental. El agua ayuda en la digestión, circulación, regulación de temperatura y eliminación de toxinas.</p>
+            </div>
+
+            <div class="section" id="mindfulness">
+                <h3><i class="fas fa-spa"></i> Mindfulness y Meditación</h3>
+                <p>La práctica del mindfulness te ayuda a vivir en el presente y reducir el estrés. La meditación regular mejora la concentración, reduce la ansiedad y promueve una sensación de calma y claridad mental.</p>
+            </div>
+
+            <div class="section" id="relaciones">
+                <h3><i class="fas fa-user-friends"></i> Relaciones Saludables</h3>
+                <p>Las relaciones interpersonales de calidad son fundamentales para el bienestar emocional. Cultiva conexiones auténticas, practica la comunicación efectiva y establece límites saludables. Las relaciones positivas proporcionan apoyo emocional, reducen el estrés y aumentan la sensación de pertenencia.</p>
+            </div>
+        </section>
+
+        <!-- Conclusión -->
+        <section class="section" id="conclusion">
+            <h2><i class="fas fa-bullseye"></i> Conclusión</h2>
+            <p>Un estilo de vida saludable no es un destino, sino un viaje continuo de autodescubrimiento y mejora personal. Cada pequeño cambio que implementes en tu rutina diaria te acerca más a una vida plena y equilibrada. Recuerda que la consistencia es más importante que la perfección.</p>
+            
+            <p>En VidaSana, creemos que la salud integral abarca todos los aspectos de tu ser: físico, mental, emocional y social. No se trata de seguir modas o tendencias, sino de encontrar el equilibrio que funcione para ti y tu estilo de vida único.</p>
+            
+            <p>Comienza hoy mismo con pequeños pasos. Elige una fruta en lugar de un snack procesado, camina 10 minutos más al día, dedica 5 minutos a la meditación, o simplemente sonríe más a menudo. Estos pequeños cambios se convertirán en hábitos poderosos que transformarán tu vida.</p>
+            
+            <p style="text-align: center; font-size: 1.2rem; margin-top: 2rem;"><strong><i class="fas fa-heart"></i> ¡Tu bienestar es tu responsabilidad y tu regalo más valioso! <i class="fas fa-heart"></i></strong></p>
+        </section>
+
+        <!-- Pie de Página -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-leaf"></i> VidaSana</h3>
+                    <p>Tu portal de bienestar integral donde encontrarás todo lo necesario para llevar una vida saludable y equilibrada.</p>
+                </div>
+                <div class="footer-section">
+                    <h3><i class="fas fa-link"></i> Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="#planes"><i class="fas fa-chevron-right"></i> Planes de Salud</a></li>
+                        <li><a href="#consejos"><i class="fas fa-chevron-right"></i> Consejos</a></li>
+                        <li><a href="#errores"><i class="fas fa-chevron-right"></i> Errores Comunes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3><i class="fas fa-envelope"></i> Contacto</h3>
+                    <p><i class="fas fa-phone"></i> +123 456 7890</p>
+                    <p><i class="fas fa-envelope"></i> info@vidasana.com</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 VidaSana. Todos los derechos reservados.</p>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        // Frases motivacionales
+        let currentQuoteIndex = 0;
+        const quotes = document.querySelectorAll('.quote-slide');
+        const dots = document.querySelectorAll('.quote-dot');
+        
+        function showQuote(index) {
+            quotes.forEach(quote => quote.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            quotes[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentQuoteIndex = index;
+        }
+        
+        function nextQuote() {
+            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+            showQuote(currentQuoteIndex);
+        }
+        
+        setInterval(nextQuote, 5000);
+        
+        dots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                showQuote(index);
+            });
+        });
+
+        // Cuestionario
+        document.getElementById('quiz-submit').addEventListener('click', function() {
+            const questions = document.querySelectorAll('.quiz-question');
+            let totalScore = 0;
+            
+            questions.forEach(question => {
+                const selectedOption = question.querySelector('input[type="radio"]:checked');
+                if (selectedOption) {
+                    totalScore += parseInt(selectedOption.value);
+                }
+            });
+            
+            const resultDiv = document.getElementById('quiz-result');
+            resultDiv.style.display = 'block';
+            
+            if (totalScore >= 12) {
+                resultDiv.className = 'quiz-result result-excellent';
+                resultDiv.innerHTML = `
+                    <h3><i class="fas fa-trophy"></i> ¡Excelente Estilo de Vida!</h3>
+                    <p>Tu estilo de vida es muy saludable. Mantienes buenos hábitos en ejercicio, alimentación, descanso y manejo del estrés. ¡Sigue así!</p>
+                    <p><strong>Recomendación:</strong> Continúa con tus buenos hábitos y comparte tu conocimiento con otros.</p>
+                `;
+            } else if (totalScore >= 8) {
+                resultDiv.className = 'quiz-result result-good';
+                resultDiv.innerHTML = `
+                    <h3><i class="fas fa-thumbs-up"></i> Buen Estilo de Vida</h3>
+                    <p>Tienes un estilo de vida bastante bueno, pero hay áreas que podrías mejorar. Identifica dónde puedes hacer pequeños cambios para avanzar.</p>
+                    <p><strong>Recomendación:</strong> Elige una o dos áreas para mejorar y establece metas pequeñas y alcanzables.</p>
+                `;
+            } else {
+                resultDiv.className = 'quiz-result result-regular';
+                resultDiv.innerHTML = `
+                    <h3><i class="fas fa-heartbeat"></i> Oportunidad para Mejorar</h3>
+                    <p>Tu estilo de vida tiene áreas importantes que necesitan atención. No te preocupes, cada pequeño cambio positivo cuenta.</p>
+                    <p><strong>Recomendación:</strong> Empieza con cambios pequeños en una sola área (ejercicio, alimentación o sueño) y construye desde ahí.</p>
+                `;
+            }
+            
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
